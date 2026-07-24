@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgriVision AI - Smart Crop Health Detector & Agronomist</title>
+  <meta name="description" content="AI-powered crop disease detector, agronomist chatbot, soil calculator, and farm yield estimator.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <nav class="navbar">
+    <a href="#" class="brand">
+      <div class="brand-icon">🌿</div>
+      <div>
+        <div style="display:flex; align-items:center; gap:0.5rem;">
+          <span class="brand-title">AgriVision AI</span>
+          <span class="brand-tag">v2.4 PRO</span>
+        </div>
+        <div style="font-size:0.75rem; color:var(--text-muted);">Smart Crop Pathology & Agronomy Suite</div>
+      </div>
+    </a>
+
+    <div class="nav-tabs">
+      <button class="nav-tab active" data-tab="dashboard">📊 Dashboard</button>
+      <button class="nav-tab" data-tab="analysis">🔬 Image Studio</button>
+      <button class="nav-tab" data-tab="bot">🤖 AgriBot AI</button>
+      <button class="nav-tab" data-tab="soil">🧪 Soil Doctor</button>
+      <button class="nav-tab" data-tab="yield">💰 Yield Predictor</button>
+      <button class="nav-tab" data-tab="radar">🛰️ Outbreak Radar</button>
+      <button class="nav-tab" data-tab="journal">📅 Field Journal</button>
+    </div>
+
+    <div class="nav-actions">
+      <div class="status-badge">
+        <span class="pulse-dot"></span>
+        <span>🦙 Groq Llama 3.3 70B Active</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main App Shell -->
+  <main class="container">
+
+    <!-- 1. DASHBOARD VIEW -->
+    <section id="tab-dashboard" class="tab-content active">
+      <div class="section-header">
+        <div>
+          <h1 class="section-title">🌱 Farm Precision Dashboard</h1>
+          <p class="section-subtitle">Real-time crop diagnostic telemetry and environmental threat monitor</p>
+        </div>
+        <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
+          <button id="btnDashChat" class="btn btn-accent">
+            🤖 Ask AgriBot AI (Groq LLM)
+          </button>
+          <button id="btnDashScan" class="btn btn-primary">
+            📷 Scan Leaf Photo Now
+          </button>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <div class="glass-card stat-card">
+          <div class="stat-icon">🔬</div>
+          <div>
+            <div class="stat-value">98.4%</div>
+            <div class="stat-label">AI Diagnostic Accuracy</div>
+          </div>
+        </div>
+        <div class="glass-card stat-card">
+          <div class="stat-icon" style="color:var(--warning); border-color:var(--warning-glow);">⚠️</div>
+          <div>
+            <div class="stat-value" style="color:var(--warning);">High</div>
+            <div class="stat-label">Late Blight Regional Risk</div>
+          </div>
+        </div>
+        <div class="glass-card stat-card">
+          <div class="stat-icon" style="color:var(--accent); border-color:rgba(139,92,246,0.3);">🧪</div>
+          <div>
+            <div class="stat-value" style="color:var(--accent);">6.4 pH</div>
+            <div class="stat-label">Optimal Soil Baseline</div>
+          </div>
+        </div>
+        <div class="glass-card stat-card">
+          <div class="stat-icon" style="color:var(--secondary); border-color:rgba(6,182,212,0.3);">📈</div>
+          <div>
+            <div class="stat-value" style="color:var(--secondary);">$24,500</div>
+            <div class="stat-label">Protected Harvest Value</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dash-main-grid">
+        <div class="glass-card">
+          <h3 style="margin-bottom:1rem; font-size:1.2rem;">⚡ Quick Crop Inspection Studio</h3>
+          <p style="color:var(--text-muted); margin-bottom:1.5rem;">Select a pre-loaded leaf sample below or upload your own farm photo for immediate pathology diagnosis:</p>
+
+          <div id="presetContainer" class="preset-grid">
+            <!-- Preset Chips dynamically rendered by app.js -->
+          </div>
+
+          <div style="margin-top:1.8rem; display:flex; justify-content:flex-end;">
+            <button id="btnDashStudio" class="btn btn-primary">
+              Open Full Image Analysis Studio →
+            </button>
+          </div>
+        </div>
+
+        <div class="glass-card" style="display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <h3 style="color:var(--warning); display:flex; align-items:center; gap:0.5rem; margin-bottom:1rem;">
+              <span>🚨</span> Pathogen Threat Alert
+            </h3>
+            <p style="font-size:0.9rem; line-height:1.6; color:var(--text-main);">
+              <strong>Late Blight Warning:</strong> High relative humidity (>90%) forecasted in Sector A1 and B2 over the next 48 hours. Fungal spore germination index is elevated.
+            </p>
+          </div>
+          <div style="margin-top:1.5rem;">
+            <button id="btnDashRadar" class="btn btn-outline btn-sm" style="width:100%;">
+              Inspect Regional Outbreak Radar
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. IMAGE ANALYSIS VIEW -->
+    <section id="tab-analysis" class="tab-content">
+      <div class="section-header">
+        <div>
+          <h1 class="section-title">🔬 AI Crop Diagnostic Studio</h1>
+          <p class="section-subtitle">Deep learning leaf lesion analysis, bounding box inspection & treatment protocols</p>
+        </div>
+      </div>
+
+      <div class="analysis-layout">
+        <!-- Left: Upload & Canvas Inspector -->
+        <div style="display:flex; flex-direction:column; gap:1.5rem;">
+          <div id="dropZone" class="upload-box">
+            <div class="upload-icon">📷</div>
+            <div style="font-weight:700;">Drop your crop leaf photo here or click to browse</div>
+            <div style="font-size:0.85rem; color: var(--text-muted); margin-top:0.4rem;">Supports JPG, PNG, WEBP (Max 15MB)</div>
+            <input type="file" id="fileInput" accept="image/*" style="display:none;">
+          </div>
+
+          <div class="scanner-viewport">
+            <canvas id="diagnosticCanvas"></canvas>
+            <div class="overlay-controls">
+              <button id="toggleBoxBtn" class="overlay-btn active">🎯 Bounding Box</button>
+              <button id="toggleHeatmapBtn" class="overlay-btn">🔥 Severity Heatmap</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Diagnostic Report Panel -->
+        <div class="glass-card report-panel">
+          <div class="report-header">
+            <div>
+              <h2 id="reportDiseaseName" class="disease-name">Tomato - Late Blight</h2>
+              <div id="reportScientificName" class="scientific-name">Phytophthora infestans</div>
+            </div>
+            <span id="reportSeverityPill" class="severity-pill danger">Severity: High</span>
+          </div>
+
+          <div class="confidence-meter">
+            <div style="font-size:0.85rem; font-weight:700;">AI Diagnostic Match:</div>
+            <div class="meter-bar">
+              <div id="reportConfidenceBar" class="meter-fill" style="width: 97%;"></div>
+            </div>
+            <div id="reportConfidenceScore" style="font-family:var(--font-mono); font-weight:800; color:var(--primary);">97.4%</div>
+          </div>
+
+          <div>
+            <h4 style="color:var(--text-muted); font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; margin-bottom:0.4rem;">Affected Leaf Area:</h4>
+            <div id="reportAffectedArea" style="font-weight:700; color:var(--text-main);">34% of leaf surface</div>
+          </div>
+
+          <div>
+            <h4 style="color:var(--text-muted); font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; margin-bottom:0.4rem;">Primary Symptoms:</h4>
+            <ul id="reportSymptomsList" class="treatment-list">
+              <!-- Dynamically rendered -->
+            </ul>
+          </div>
+
+          <div>
+            <h4 style="color:var(--text-muted); font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; margin-bottom:0.4rem;">Biological Causes:</h4>
+            <p id="reportCauses" style="font-size:0.88rem; color:var(--text-muted); line-height:1.5;"></p>
+          </div>
+
+          <div class="treatment-box">
+            <div class="treatment-toggle">
+              <button id="tabOrganicBtn" class="toggle-btn active">🌿 Organic & Bio-Remedies</button>
+              <button id="tabChemicalBtn" class="toggle-btn">🧪 Chemical Solutions</button>
+            </div>
+            <ul id="treatmentListContent" class="treatment-list">
+              <!-- Dynamically rendered -->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. AGRIBOT CHAT VIEW -->
+    <section id="tab-bot" class="tab-content">
+      <div class="section-header">
+        <div>
+          <h1 class="section-title">🤖 AgriBot - AI Agronomist Assistant</h1>
+          <p class="section-subtitle">24/7 Intelligent agricultural advisor for disease treatment, soil nutrition & pest management</p>
+        </div>
+        <button id="toggleTTSBtn" class="btn btn-outline btn-sm">
+          🔊 Text-to-Speech Output
+        </button>
+      </div>
+
+      <div class="glass-card chat-container">
+        <!-- Chat Sidebar -->
+        <div class="chat-sidebar">
+          <div class="quick-prompts-title">💡 Quick Agronomy Queries</div>
+          <div id="quickPromptsContainer" style="display:flex; flex-direction:column; gap:0.6rem;">
+            <!-- Rendered by app.js -->
+          </div>
+        </div>
+
+        <!-- Main Chat Area -->
+        <div class="chat-main">
+          <div id="chatHistory" class="chat-history">
+            <div class="chat-bubble bot">
+              <div class="chat-avatar">🤖</div>
+              <div class="chat-message-content">
+                <strong style="color:var(--primary);">Hello Farmer! I'm AgriBot, your AI Agronomist.</strong>
+                <p style="margin-top:0.4rem;">How can I assist your crop field today? Ask me about crop diseases, organic spray recipes, soil N-P-K ratios, or pest control strategies!</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="chat-input-area">
+            <input type="text" id="chatInput" class="chat-input" placeholder="Type your crop or soil question here (e.g. How to cure Tomato Late Blight?)...">
+            <button id="sendChatBtn" class="btn btn-primary">Send 💬</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. SOIL DOCTOR VIEW -->
+    <section id="tab-soil" class="tab-content">
+      <div class="section-header">
+        <div>
+          <h1 class="section-title">🧪 Soil & Nutrient Compatibility Doctor</h1>
+          <p class="section-subtitle">Calculate real-time crop suitability scores and fertilizer recommendation blends</p>
+        </div>
+      </div>
+
+      <div class="soil-grid">
+        <!-- Sliders -->
+        <div class="glass-card slider-group">
+          <h3 style="margin-bottom:0.5rem;">Soil Parameter Telemetry</h3>
+
+          <div class="slider-card">
+            <div class="slider-header">
+              <span>Nitrogen (N):</span>
+              <span id="valN" class="slider-value">120 kg/ha</span>
+            </div>
+            <input type="range" id="sliderN" min="0" max="250" value="120">
+          </div>
+
+          <div class="slider-card">
+            <div class="slider-header">
+              <span>Phosphorus (P):</span>
+              <span id="valP" class="slider-value">65 kg/ha</span>
+            </div>
+            <input type="range" id="sliderP" min="0" max="180" value="65">
+          </div>
+
+          <div class="slider-card">
+            <div class="slider-header">
+              <span>Potassium (K):</span>
+              <span id="valK" class="slider-value">140 kg/ha</span>
+            </div>
+            <input type="range" id="sliderK" min="0" max="250" value="140">
+          </div>
+
+          <div class="slider-card">
+            <div class="slider-header">
+              <span>Soil pH Level:</span>
+              <span id="valPH" class="slider-value">6.4</span>
+            </div>
+            <input type="range" id="sliderPH" min="4.0" max="9.0" step="0.1" value="6.4">
+          </div>
+
+          <div class="slider-card">
+            <div class="slider-header">
+              <span>Soil Moisture (%):</span>
+              <span id="valMoisture" class="slider-value">55%</span>
+            </div>
+            <input type="range" id="sliderMoisture" min="10" max="100" value="55">
+          </div>
+        </div>
+
+        <!-- Crop Compatibility & Recommendations -->
+        <div style="display:flex; flex-direction:column; gap:1.5rem;">
+          <div class="glass-card">
+            <h3 style="margin-bottom:1rem;">🌾 Crop Suitability Matching Matrix</h3>
+            <div id="suitabilityContainer" class="suitability-grid">
+              <!-- Rendered by app.js -->
+            </div>
+          </div>
+
+          <div class="glass-card">
+            <h3 style="color:var(--primary); margin-bottom:0.8rem;">💡 Recommended Fertilizer Mix Recipe</h3>
+            <div id="soilRecommendationBox" style="font-size:0.92rem; line-height:1.6; color:var(--text-main);">
+              <!-- Rendered by app.js -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. YIELD PREDICTOR VIEW -->
+    <section id="tab-yield" class="tab-content">
+      <div class="section-header">
+        <div>
+          <h1 class="section-title">💰 Crop Yield & Financial Profit Estimator</h1>
+          <p class="section-subtitle">Forecast harvest volume, market value revenue, and disease treatment ROI</p>
+        </div>
+      </div>
+
+      <div class="dashboard-grid" style="margin-bottom:2rem;">
+        <div class="glass-card stat-card">
+          <div class="stat-icon">🌾</div>
+          <div>
+            <div id="yieldTonnage" class="stat-value">22.0 Tons</div>
+            <div class="stat-label">Projected Harvest Volume</div>
+          </div>
+        </div>
+        <div class="glass-card stat-card">
+          <div class="stat-icon" style="color:var(--primary);">💵</div>
+          <div>
+            <div id="yieldRevenue" class="stat-value" style="color:var(--primary);">$10,560</div>
+            <div class="stat-label">Estimated Gross Revenue</div>
+          </div>
+        </div>
+        <div class="glass-card stat-card">
+          <div class="stat-icon" style="color:var(--danger);">⚠️</div>
+          <div>
+            <div id="yieldLossRisk" class="stat-value" style="color:var(--danger);">$2,112</div>
+            <div class="stat-label">Untreated Disease Loss Risk</div>
+          </div>
+        </div>
+        <div class="glass-card stat-card">
+          <div class="stat-icon" style="color:var(--secondary);">📈</div>
+          <div>
+            <div id="yieldRecoveryGain" class="stat-value" style="color:var(--secondary);">+$1,731</div>
+            <div class="stat-label">Treatment Net Recovery</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card" style="max-width:700px; margin: 0 auto;">
+        <h3 style="margin-bottom:1.5rem;">⚙️ Harvest Financial Inputs</h3>
+        <div style="display:flex; flex-direction:column; gap:1.25rem;">
+          <div>
+            <label style="font-weight:700; display:block; margin-bottom:0.4rem;">Farm Size (Acres):</label>
+            <input type="number" id="inputAcres" value="2.5" min="0.1" step="0.1" class="chat-input" style="width:100%;">
+          </div>
+
+          <div>
+            <label style="font-weight:700; display:block; margin-bottom:0.4rem;">Target Crop Commodity:</label>
+            <select id="selectYieldCrop" class="chat-input" style="width:100%;">
+              <option value="Tomato">Tomato ($480 / Ton)</option>
+              <option value="Corn">Corn / Maize ($240 / Ton)</option>
+              <option value="Potato">Potato ($320 / Ton)</option>
+              <option value="Rice">Rice ($420 / Ton)</option>
+              <option value="Wheat">Wheat ($290 / Ton)</option>
+            </select>
+          </div>
+
+          <div>
+            <div style="display:flex; justify-content:space-between; font-weight:700; margin-bottom:0.4rem;">
+              <span>Current Crop Health Vigor:</span>
+              <span id="valHealthStatus" style="color:var(--primary); font-family:var(--font-mono);">80%</span>
+            </div>
+            <input type="range" id="sliderHealthStatus" min="20" max="100" value="80">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. OUTBREAK RADAR VIEW -->
+    <section id="tab-radar" class="tab-content">
+      <div class="section-header">
+        <div>
+          <h1 class="section-title">🛰️ Regional Pest & Outbreak Radar</h1>
+          <p class="section-subtitle">Real-time satellite micro-climate telemetry & regional fungal spore risk map</p>
+        </div>
+      </div>
+
+      <div class="radar-grid">
+        <div class="glass-card">
+          <h3 style="margin-bottom:1rem;">🗺️ Regional Farm Sector Grid</h3>
+          <div id="radarMapGrid" class="map-grid-container">
+            <!-- Dynamic map tiles rendered by app.js -->
+          </div>
+        </div>
+
+        <div class="glass-card" style="display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <h3 id="radarZoneTitle" style="color:var(--primary); margin-bottom:1rem;">Zone Telemetry: Sector A1</h3>
+            <div id="radarZoneDetails">
+              <p style="color:var(--text-muted);">Click any farm sector on the grid to inspect localized weather conditions, spore dispersal index, and spray directives.</p>
+            </div>
+          </div>
+          <div style="margin-top:1.5rem; background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.3); border-radius:var(--radius-md); padding:1rem;">
+            <strong style="color:var(--danger); font-size:0.85rem; text-transform:uppercase;">⚠️ Automated Warning:</strong>
+            <p style="font-size:0.82rem; color:var(--text-main); margin-top:0.3rem;">Fungal spores travel up to 15 miles on wet wind currents. Ensure protective barrier sprays are applied before rain events.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. FIELD JOURNAL VIEW -->
+    <section id="tab-journal" class="tab-content">
+      <div class="section-header">
+        <div>
+          <h1 class="section-title">📅 Farm Field Journal & Spray Log</h1>
+          <p class="section-subtitle">Track treatment history, scheduled sprays, and harvest dates</p>
+        </div>
+      </div>
+
+      <div class="glass-card" style="margin-bottom:2rem;">
+        <h3 style="margin-bottom:1rem;">📝 Log New Field Spray / Event</h3>
+        <form id="addJournalForm" style="display:grid; grid-template-columns: repeat(4, 1fr) auto; gap:1rem; align-items:end;">
+          <div>
+            <label style="font-size:0.8rem; font-weight:700; display:block; margin-bottom:0.3rem;">Plot Name:</label>
+            <input type="text" id="journalPlot" class="chat-input" placeholder="e.g. West Plot B" required style="width:100%;">
+          </div>
+          <div>
+            <label style="font-size:0.8rem; font-weight:700; display:block; margin-bottom:0.3rem;">Crop:</label>
+            <input type="text" id="journalCrop" class="chat-input" placeholder="e.g. Tomato" required style="width:100%;">
+          </div>
+          <div>
+            <label style="font-size:0.8rem; font-weight:700; display:block; margin-bottom:0.3rem;">Health Status:</label>
+            <input type="text" id="journalStatus" class="chat-input" placeholder="e.g. Late Blight Treated" required style="width:100%;">
+          </div>
+          <div>
+            <label style="font-size:0.8rem; font-weight:700; display:block; margin-bottom:0.3rem;">Treatment Applied:</label>
+            <input type="text" id="journalSpray" class="chat-input" placeholder="e.g. Copper Hydroxide" required style="width:100%;">
+          </div>
+          <button type="submit" class="btn btn-primary" style="height:44px;">Save Log 💾</button>
+        </form>
+      </div>
+
+      <div class="glass-card">
+        <h3 style="margin-bottom:1rem;">📜 Field Activity Log History</h3>
+        <table class="journal-table">
+          <thead>
+            <tr>
+              <th>Farm Plot</th>
+              <th>Crop</th>
+              <th>Health Status</th>
+              <th>Applied Treatment</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="journalTableBody">
+            <!-- Dynamically populated from LocalStorage -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Floating Chatbot Widget Button -->
+  <button id="floatingChatBtn" class="floating-chat-btn">
+    <span>🤖 Chat with AgriBot (Groq Llama 3.3 70B)</span>
+  </button>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
